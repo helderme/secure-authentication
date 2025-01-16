@@ -78,3 +78,21 @@ Inicie o servidor local:
 python manage.py runserver
 ```
 
+## Models e serializer
+Alterado o arquivo models.py
+criado o arquivo serializer.py
+Alterado o arquivo views.py (method, decorator, serializer)
+
+backend/settings = permissions de https://www.django-rest-framework.org/api-guide/permissions/
+
+
+no arquivo urls.py insere o novo path que chama a funcao criada em views.
+
+python .\manage.py makemigrations
+python manage.py migrate
+
+nova request postman para fazer o get note colocando o token que fizemos na primeira chamada
+
+agora é possivel entrar no painel admin
+http://127.0.0.1:8000/admin/
+adicionar uma nova nota e verificar se funciona bem pelo get do postman

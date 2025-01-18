@@ -96,3 +96,9 @@ nova request postman para fazer o get note colocando o token que fizemos na prim
 agora é possivel entrar no painel admin
 http://127.0.0.1:8000/admin/
 adicionar uma nova nota e verificar se funciona bem pelo get do postman
+
+
+## frontend
+npm install axios
+npm install react-router-dom
+npm i @chakra-ui/react@2 @emotion/react @emotion/styled framer-motion

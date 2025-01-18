@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Note
-from .serializer import NoteSerializer
+from .serializer import NoteSerializer, UserRegistrationSerializer
 
 #https://www.django-rest-framework.org/api-guide/views/
 from rest_framework.decorators import api_view, permission_classes
@@ -13,7 +13,6 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-#
 class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         try:
@@ -89,6 +88,20 @@ def logout(request):
         return res
     except:
         return Response({'success': False})
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def is_authenticated(request):
+    return Response({'authenticated': True})
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def register(request):
+    serializer = UserRegistrationSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.error)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

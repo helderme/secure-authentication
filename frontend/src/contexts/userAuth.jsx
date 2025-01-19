@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { is_authenticated } from "../enpoints/api";
+import { is_authenticated, register } from "../enpoints/api";
 
 import { login } from "../enpoints/api";
 
@@ -34,12 +34,27 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    const register_user = async (username, email, password, cPassword) => {
+        if (password === cPassword) {
+            try {
+                await register(username, email, password)
+                nav('/login')
+                alert('successfully registered user')
+            } catch(error) {
+                alert('error registering user')
+            }
+        }
+        else {
+            alert('passwords dont match')
+        }
+    }
+
     useEffect(() => {
         get_authenticated();
     }, [window.location.pathname])
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, loading, login_user}}>
+        <AuthContext.Provider value={{isAuthenticated, loading, login_user, register_user}}>
             {children}
         </AuthContext.Provider>
     )

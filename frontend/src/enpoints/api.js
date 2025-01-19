@@ -6,6 +6,7 @@ const REFRESH_URL = `${BASE_URL}token/refresh/`
 const NOTES_URL = `${BASE_URL}notes/`
 const LOGOUT_URL = `${BASE_URL}logout/`
 const AUTH_URL = `${BASE_URL}authenticated/`
+const REGISTER_URL = `${BASE_URL}register/`
 
 
 export const login = async (username, password) => {
@@ -78,3 +79,15 @@ export const is_authenticated = async () => {
     
 }
 
+export const register = async (username, email, password) => {
+    try {
+        const response = await axios.post(REGISTER_URL, 
+            {username, email, password}, 
+            {withCredentials: true}
+        )
+        return response.data
+    } catch(error) {
+        return false
+    }
+    
+}

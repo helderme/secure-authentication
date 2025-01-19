@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = process.env.API_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL
 const LOGIN_URL = `${BASE_URL}token/`
 const REFRESH_URL = `${BASE_URL}token/refresh/`
 const NOTES_URL = `${BASE_URL}notes/`

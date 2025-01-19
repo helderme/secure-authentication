@@ -15,9 +15,9 @@ import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { get_notes, logout, add_note, delete_note } from "../enpoints/api";
+import { get_notes, logout, add_note, delete_note } from "../enpoints/api.js";
 
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../context/useAuth.jsx";
 
 const Menu = () => {
   const [notes, setNotes] = useState([]);

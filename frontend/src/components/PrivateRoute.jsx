@@ -1,6 +1,6 @@
 import { Heading } from "@chakra-ui/react";
 
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../context/useAuth.jsx";
 
 import { useNavigate } from 'react-router-dom'
 

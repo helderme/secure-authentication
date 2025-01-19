@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-import Login from './routes/Login'
-import Menu from './routes/Menu'
-import Register from './routes/Register'
+import Login from './routes/Login.jsx'
+import Menu from './routes/Menu.jsx'
+import Register from './routes/Register.jsx'
 
 import { ChakraProvider } from '@chakra-ui/react'
 
-import PrivateRoute from './components/PrivateRoute'
+import PrivateRoute from './components/PrivateRoute.jsx'
 
-import { AuthProvider } from './context/useAuth'
+import { AuthProvider } from './context/useAuth.jsx'
 
 
 

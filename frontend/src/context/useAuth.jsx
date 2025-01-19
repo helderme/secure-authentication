@@ -1,8 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { authenticated_user, register } from "../enpoints/api";
-
-import { login } from "../enpoints/api";
+import { authenticated_user, register, login } from "../enpoints/api.js";
 
 import { useNavigate } from "react-router-dom"
 

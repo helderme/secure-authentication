@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useState } from "react";
-import { useAuth } from "../contexts/userAuth";
+import { useAuth } from "../context/useAuth";
 
 import { Link as ReactRouterLink } from "react-router-dom";
 

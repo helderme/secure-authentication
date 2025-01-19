@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Note
-from .serializer import NoteSerializer, UserRegistrationSerializer
+from .serializer import NoteSerializer, UserRegistrationSerializer, UserSerializer
 
 #https://www.django-rest-framework.org/api-guide/views/
 from rest_framework.decorators import api_view, permission_classes
@@ -91,8 +91,9 @@ def logout(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def is_authenticated(request):
-    return Response({'authenticated': True})
+def is_logged_in(request):
+    serializer = UserSerializer(request.user, many=False)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -110,3 +111,22 @@ def get_notes(request):
     notes = Note.objects.filter(owner=user)
     serializer = NoteSerializer(notes, many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_note(request):
+    serializer = NoteSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(owner=request.user)
+        return Response(serializer.data)
+    return Response(serializer.error)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def delete_note(request, note_id):
+    try:
+        note = Note.objects.get(id=note_id, owner=request.user)
+        note.delete()
+        return Response({'success': True})
+    except:
+        return Response({'success': False})

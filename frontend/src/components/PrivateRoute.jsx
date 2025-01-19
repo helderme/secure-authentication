@@ -1,19 +1,19 @@
 import { Heading } from "@chakra-ui/react";
 
-import { useAuth } from "../contexts/userAuth";
+import { useAuth } from "../context/useAuth";
 
 import { useNavigate } from 'react-router-dom'
 
 const PrivateRoute = ({children}) => {
 
-    const { isAuthenticated, loading } = useAuth();
+    const { user, loading } = useAuth();
     const nav = useNavigate();
     
     if (loading) {
         return <Heading>Loading...</Heading>
     }
 
-    if (isAuthenticated) {
+    if (user) {
         return children
     } else {
         nav('/login')

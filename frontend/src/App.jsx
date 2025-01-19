@@ -8,7 +8,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 import PrivateRoute from './components/PrivateRoute'
 
-import { AuthProvider } from './contexts/userAuth'
+import { AuthProvider } from './context/useAuth'
 
 
 

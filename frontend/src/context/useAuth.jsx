@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { is_authenticated, register } from "../enpoints/api";
+import { authenticated_user, register } from "../enpoints/api";
 
 import { login } from "../enpoints/api";
 
@@ -11,16 +11,16 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true)
     const nav = useNavigate()
 
-    const get_authenticated = async () => {
+    const get_authenticated_user = async () => {
         try {
-            const success = await is_authenticated()
-            setIsAuthenticated(success)
+            const user = await authenticated_user()
+            setUser(user);
         } catch(error) {
-            setIsAuthenticated(false)
+            setUser(null);
         } finally {
             setLoading(false)
         }
@@ -29,7 +29,7 @@ export const AuthProvider = ({children}) => {
     const login_user = async (username, password) => {
         const success = await login(username, password)
         if (success) {
-            setIsAuthenticated(true)
+
             nav('/')
         }
     }
@@ -50,11 +50,11 @@ export const AuthProvider = ({children}) => {
     }
 
     useEffect(() => {
-        get_authenticated();
+        get_authenticated_user();
     }, [window.location.pathname])
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, loading, login_user, register_user}}>
+        <AuthContext.Provider value={{ user, loading, login_user, register_user }}>
             {children}
         </AuthContext.Provider>
     )

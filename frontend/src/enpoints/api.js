@@ -7,6 +7,8 @@ const NOTES_URL = `${BASE_URL}notes/`
 const LOGOUT_URL = `${BASE_URL}logout/`
 const AUTH_URL = `${BASE_URL}authenticated/`
 const REGISTER_URL = `${BASE_URL}register/`
+const ADD_NOTE_URL = `${BASE_URL}add_note/`
+const DELETE_NOTE_URL = `${BASE_URL}delete_note/`
 
 
 export const login = async (username, password) => {
@@ -69,10 +71,10 @@ export const logout = async () => {
     
 }
 
-export const is_authenticated = async () => {
+export const authenticated_user = async () => {
     try {
-        await axios.post(AUTH_URL, {}, {withCredentials: true})
-        return true
+        const response = await axios.post(AUTH_URL, {}, {withCredentials: true})
+        return response.data
     } catch(error) {
         return false
     }
@@ -90,4 +92,26 @@ export const register = async (username, email, password) => {
         return false
     }
     
+}
+
+export const add_note = async (description) => {
+    try {
+        const response = await axios.post(ADD_NOTE_URL, 
+            {description}, 
+            {withCredentials: true}
+        )
+        return response.data
+    } catch(error) {
+        return false
+    }
+}
+
+export const delete_note = async (note_id) => {
+    try {
+        await axios.post(`${DELETE_NOTE_URL}${note_id}/`, {}, {withCredentials: true})
+        return true
+    } catch(error) {
+        
+        return false
+    }
 }

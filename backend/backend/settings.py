@@ -64,6 +64,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://secure-auth-webservice.onrender.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

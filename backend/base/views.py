@@ -102,7 +102,16 @@ def register(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
-    return Response(serializer.error)
+
+    
+    errors = serializer.errors
+    error_messages = []
+    for field, messages in errors.items():
+        for message in messages:
+            error_messages.append(message)
+
+    return Response({"error": error_messages[0]})
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

@@ -25,30 +25,38 @@ export const AuthProvider = ({children}) => {
     }
 
     const login_user = async (username, password) => {
-        const success = await login(username, password)
-        if (success) {
-
-            nav('/')
+        try {
+            const success = await login(username, password);
+            if (success) {
+                nav('/');
+            } else {
+                throw new Error('Invalid username/password.');
+            }
+        } catch (error) {
+            throw error;
         }
-    }
+    };
 
     const register_user = async (username, email, password, cPassword) => {
         if (password === cPassword) {
             try {
-                await register(username, email, password)
-                nav('/login')
-                alert('successfully registered user')
+                const data = await register(username, email, password)
+                return data
             } catch(error) {
-                alert('error registering user')
+                return false
             }
         }
         else {
-            alert('passwords dont match')
+            return 'passwords dont match'
         }
     }
 
     useEffect(() => {
-        get_authenticated_user();
+        const public_list = ['/login', '/register']
+        if (!public_list.includes(window.location.pathname)) {
+            get_authenticated_user();
+        }
+        
     }, [window.location.pathname])
 
     return (

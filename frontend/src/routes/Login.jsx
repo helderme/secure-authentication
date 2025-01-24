@@ -7,6 +7,7 @@ import {
   Text,
   Link as ChakraLink,
   Flex,
+  Spinner,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
@@ -14,13 +15,23 @@ import { useAuth } from "../context/useAuth.jsx";
 
 import { Link as ReactRouterLink } from "react-router-dom";
 
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [validation, setValidation] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { login_user } = useAuth();
 
-  const handleLogin = () => {
-    login_user(username, password);
+  const handleLogin = async () => {
+    setIsLoading(true);
+    try {
+      await login_user(username, password);
+    } catch (error) {
+      setValidation(error.message)
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -47,21 +58,28 @@ const Login = () => {
             placeholder="Password"
           />
         </FormControl>
+        {validation && (
+          <Text mb="20px" fontSize="18px" color="red.500">
+            Invalid username/password.
+          </Text>
+        )}
         <Button
           onClick={handleLogin}
           mb="10px"
           colorScheme="blue"
           mt="20px"
           w="100%"
+          isDisabled={isLoading}
         >
-          Login
+          {isLoading ? <Spinner size="sm" /> : "Login"}
         </Button>
         <Text>
           Don't have an account?{" "}
-          <ChakraLink as={ReactRouterLink} to="/register">
+          <ChakraLink as={ReactRouterLink} to="/register" color="teal.500" fontWeight="bold">
             Sign up
           </ChakraLink>
         </Text>
+
       </VStack>
     </Flex>
   );

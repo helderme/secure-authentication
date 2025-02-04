@@ -62,6 +62,11 @@ MIDDLEWARE = [
 
 #https://pypi.org/project/django-cors-headers/
 
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://secure-authentication-zf5s.onrender.com",

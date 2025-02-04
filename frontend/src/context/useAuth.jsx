@@ -29,7 +29,7 @@ export const AuthProvider = ({children}) => {
             const success = await login(username, password);
             if (success) {
                 await get_authenticated_user();
-                nav('/');
+                window.location.href = '/';
             } else {
                 throw new Error('Invalid username/password.');
             }

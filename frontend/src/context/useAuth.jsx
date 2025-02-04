@@ -28,6 +28,7 @@ export const AuthProvider = ({children}) => {
         try {
             const success = await login(username, password);
             if (success) {
+                await get_authenticated_user(); 
                 nav('/');
             } else {
                 throw new Error('Invalid username/password.');

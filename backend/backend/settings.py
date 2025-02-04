@@ -67,6 +67,10 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SECURE = True
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://secure-authentication-zf5s.onrender.com",
+]
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://secure-authentication-zf5s.onrender.com",
